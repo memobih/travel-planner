@@ -1,0 +1,23 @@
+/* User specific overrides or additions */
+.state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px;
+    text-align: center;
+    color: #64748b;
+}
+
+.huge-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Specific to the heart icon active state */
+button[color="warn"] mat-icon {
+    color: #ef4444;
+}

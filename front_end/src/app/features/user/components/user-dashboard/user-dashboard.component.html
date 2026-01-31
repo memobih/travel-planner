@@ -1,0 +1,137 @@
+<div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <mat-icon color="primary">explore</mat-icon>
+            <h2>Traveler Hub</h2>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-item" [class.active]="currentView === 'discover'" (click)="setView('discover')">
+                <mat-icon>search</mat-icon>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item" [class.active]="currentView === 'wishlist'" (click)="setView('wishlist')">
+                <mat-icon>favorite</mat-icon>
+                <span>My Wishlist</span>
+            </div>
+        </nav>
+
+        <div class="logout-btn">
+            <div class="nav-item" (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Sign Out</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Progress Bar for Bulk Operations -->
+        <div class="progress-container" *ngIf="isSaving">
+            <div class="progress-info">
+                <span>{{ currentView === 'wishlist' ? 'Removing' : 'Adding' }} Destinations...</span>
+                <span>{{ progressValue }}%</span>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
+        </div>
+
+        <header class="page-header">
+            <div class="header-title">
+                <h1>{{ currentView === 'discover' ? 'Explore the World' : 'Your Dream Trips' }}</h1>
+                <p>{{ currentView === 'discover' ? 'Find your next adventure from our curated list' : 'Destinations you
+                    want to visit' }}</p>
+            </div>
+            <button mat-flat-button [color]="currentView === 'wishlist' ? 'warn' : 'primary'"
+                [disabled]="selection.selected.length === 0 || isSaving" (click)="bulkToggleWishlist()">
+                <mat-icon *ngIf="!isSaving">{{ currentView === 'wishlist' ? 'delete_sweep' : 'add_circle' }}</mat-icon>
+                <mat-spinner diameter="20" *ngIf="isSaving"></mat-spinner>
+                {{ currentView === 'wishlist' ? 'Remove Selected' : 'Add to Wishlist' }} ({{selection.selected.length}})
+            </button>
+        </header>
+
+        <div class="glass-card mb-24">
+            <div class="search-bar">
+                <input type="text" class="fancy-input"
+                    [placeholder]="currentView === 'discover' ? 'Search global destinations...' : 'Search your wishlist...'"
+                    (input)="applyFilter($event)">
+                <button mat-icon-button (click)="loadData()" matTooltip="Refresh">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+
+            <div class="table-wrapper mat-elevation-z0" *ngIf="!isLoading">
+                <table mat-table [dataSource]="dataSource">
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <!-- Flag Column -->
+                    <ng-container matColumnDef="flagUrl">
+                        <th mat-header-cell *matHeaderCellDef> Flag </th>
+                        <td mat-cell *matCellDef="let element">
+                            <img [src]="element.flagUrl" class="flag-thumb">
+                        </td>
+                    </ng-container>
+
+                    <!-- Country Column -->
+                    <ng-container matColumnDef="country">
+                        <th mat-header-cell *matHeaderCellDef> Country </th>
+                        <td mat-cell *matCellDef="let element" style="font-weight: 600;"> {{element.country}} </td>
+                    </ng-container>
+
+                    <!-- Capital Column -->
+                    <ng-container matColumnDef="capital">
+                        <th mat-header-cell *matHeaderCellDef> Capital </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="badge">{{element.capital}}</span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Region Column (Discover only) -->
+                    <ng-container matColumnDef="region">
+                        <th mat-header-cell *matHeaderCellDef> Region </th>
+                        <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+                    </ng-container>
+
+                    <!-- Population Column (Wishlist only) -->
+                    <ng-container matColumnDef="population">
+                        <th mat-header-cell *matHeaderCellDef> Population </th>
+                        <td mat-cell *matCellDef="let element"> {{element.population | number}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row
+                        *matHeaderRowDef="currentView === 'discover' ? discoverColumns : wishlistColumns"></tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: currentView === 'discover' ? discoverColumns : wishlistColumns;"
+                        (click)="selection.toggle(row)" [class.selected-row]="selection.isSelected(row)"></tr>
+                </table>
+
+                <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]"
+                    (page)="onPageChange($event)">
+                </mat-paginator>
+            </div>
+
+            <div *ngIf="isLoading" class="state-container">
+                <mat-spinner diameter="40"></mat-spinner>
+                <p>Loading destinations...</p>
+            </div>
+
+            <div *ngIf="!isLoading && dataSource.data.length === 0" class="state-container">
+                <mat-icon class="huge-icon">sentiment_dissatisfied</mat-icon>
+                <h3>No destinations found</h3>
+            </div>
+        </div>
+    </main>
+</div>
