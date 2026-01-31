@@ -21,20 +21,6 @@ mvn spring-boot:run
 
 The backend will start at:
 http://localhost:8081
-### 4. API Endpoints
-**Auth**
-- POST /api/auth/register - Register user/admin
-- POST /api/auth/login - Login (returns JWT)
-**Admin**
-- POST /api/admin/bulk - Bulk create destinations
-- DELETE /api/admin/bulk - Bulk delete destinations
-- GET /api/admin - Get paginated destinations (with keyword search)
-**User**
-- GET /api/user - Get all destinations (paginated + keyword search)
-- POST /api/user/want-to-visit - Mark destinations as want-to-visit
-- POST /api/user/unwant-to-visit - Unmark destinations
-- GET /api/user/want-to-visit - Get all want-to-visit destinations (paginated + keyword search)
----
 
 ## Frontend (Angular)
 
