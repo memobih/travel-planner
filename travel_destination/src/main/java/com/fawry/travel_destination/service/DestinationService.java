@@ -29,16 +29,6 @@ public class DestinationService  implements IDestinationService
         this.userDestinationRepository=userDestinationRepository;
         this.userRepository=userRepository;
     }
-
-    @SuppressWarnings("null")
-    @Override
-    public DestinationResponse create(DestinationDTO request) {
-        Destination entity = mapToEntity(request);
-        Destination saved = destinationRepository.save(entity);
-        return mapToResponse(saved);
-    }
-
-    @SuppressWarnings("null")
     @Override
     public List<DestinationResponse> bulkCreate(List<DestinationDTO> request) {
         List<Destination> entities = request.stream()
@@ -58,7 +48,6 @@ public class DestinationService  implements IDestinationService
         return response.map(this::mapToResponse);
     }
 
-    @SuppressWarnings("null")
     @Override
     public boolean bulkDelete(List<Long> ids) {
         List<Destination> toDelete = destinationRepository.findAllById(ids);
@@ -67,7 +56,6 @@ public class DestinationService  implements IDestinationService
         return true;
     }
 
-    @SuppressWarnings("null")
     @Override
     public boolean markWantToVisit(Long userId, List<Long> destinationIds) {
         User user = userRepository.findById(userId)

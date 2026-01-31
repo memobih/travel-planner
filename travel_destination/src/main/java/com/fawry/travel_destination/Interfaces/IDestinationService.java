@@ -8,7 +8,6 @@ import com.fawry.travel_destination.model.dtos.DestinationDTO;
 import com.fawry.travel_destination.model.dtos.DestinationResponse;
 
 public interface IDestinationService {
-     DestinationResponse create(DestinationDTO request);
     List<DestinationResponse> bulkCreate(List<DestinationDTO> request);
     Page<DestinationResponse> getAll(String keyword, int page , int size);
     boolean bulkDelete(List<Long> ids);
