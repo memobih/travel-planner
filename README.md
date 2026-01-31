@@ -44,7 +44,7 @@ http://localhost:4200
 1. Start Spring Boot backend first (localhost:8080)
 2. Start Angular frontend (localhost:4200)
 3. Login as admin/user
-4.  (username : admin , passwoed :admin123) (this is for admin only created with seeding)
+4.  (username : admin  , passwoed : admin123 ) (this is for admin only created with seeding)
 5. Admin can add, bulk add, delete destinations
 6. User can view destinations, search, mark "Want to Visit"
 
