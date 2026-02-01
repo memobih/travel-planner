@@ -14,10 +14,10 @@ Full-stack application using Spring Boot (backend) , Angular  (front end) and MY
 cd travel_destination
 
 ### 2. Build the project
-mvn clean install
+./mvnw clean install
 
 ### 3. Run the project
-mvn spring-boot:run
+./mvnw spring-boot:run
 
 The backend will start at:
 http://localhost:8081
