@@ -53,7 +53,6 @@ http://localhost:4200
 ## Notes
 
 - Make sure backend is running before using frontend
-- Use JWT token returned from login to access protected routes
 - Pagination parameters: page (0-based), size (number of items per page)
 - Keyword search supported via query param: keyword
 
