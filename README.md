@@ -14,10 +14,10 @@ Full-stack application using Spring Boot (backend) , Angular  (front end) and MY
 cd travel_destination
 
 ### 2. Build the project
-mvn clean install
+./mvnw clean install
 
 ### 3. Run the project
-mvn spring-boot:run
+./mvnw spring-boot:run
 
 The backend will start at:
 http://localhost:8081
@@ -53,7 +53,6 @@ http://localhost:4200
 ## Notes
 
 - Make sure backend is running before using frontend
-- Use JWT token returned from login to access protected routes
 - Pagination parameters: page (0-based), size (number of items per page)
 - Keyword search supported via query param: keyword
 
