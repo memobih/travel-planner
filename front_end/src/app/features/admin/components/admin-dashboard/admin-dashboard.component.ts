@@ -27,11 +27,11 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         return this._suggestionsPaginator;
     }
 
-    suggestionColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'population'];
+    suggestionColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'currency', 'population'];
     suggestionsDataSource = new MatTableDataSource<Destination>([]);
     selection = new SelectionModel<Destination>(true, []);
 
-    internalColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'population'];
+    internalColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'currency', 'population'];
     internalDataSource = new MatTableDataSource<Destination>([]);
     internalSelection = new SelectionModel<Destination>(true, []);
 

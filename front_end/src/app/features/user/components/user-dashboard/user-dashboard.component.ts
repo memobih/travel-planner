@@ -16,8 +16,8 @@ import { from, concatMap, tap, catchError, of } from 'rxjs';
     standalone: false
 })
 export class UserDashboardComponent implements OnInit {
-    discoverColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'region', 'population'];
-    wishlistColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'population'];
+    discoverColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'currency', 'region', 'population'];
+    wishlistColumns: string[] = ['select', 'flagUrl', 'country', 'capital', 'currency', 'region', 'population'];
     dataSource = new MatTableDataSource<Destination>([]);
     selection = new SelectionModel<Destination>(true, []);
     totalItems = 0;
